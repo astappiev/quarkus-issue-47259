@@ -7,11 +7,8 @@ import io.smallrye.mutiny.Uni;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import org.acme.reproducer.user.User;
-import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,8 +16,6 @@ import java.util.UUID;
 @Cacheable
 @Table(name = "api_key")
 public class ApiKey extends PanacheEntityBase implements Credential {
-    public static final int LENGTH = 64;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
@@ -33,18 +28,9 @@ public class ApiKey extends PanacheEntityBase implements Credential {
     @NotNull
     public String name;
 
-    @Size(max = 512)
-    public String url;
-
-    @Size(max = 1024)
-    public String description;
-
     @NotEmpty
     @NotNull
     public String apikey;
-
-    @CreationTimestamp
-    public Instant created;
 
     public ApiKey() {
         // required for Panache
